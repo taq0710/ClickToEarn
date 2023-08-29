@@ -1,0 +1,21 @@
+.selectWrapper{
+  width: 100%;
+  .selectField{
+    height: 44px;
+    width: 100%;
+    :global{
+      .ant-select{
+        height: 44px;
+      }
+      .ant-select-selector{
+        height:44px;
+        border:2px solid #D7D7D7;
+      }
+      .ant-select-selection-item{
+        margin: auto;
+        font-size: 16px;
+        color: #011A30;
+      }
+    }
+  }
+}

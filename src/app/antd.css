@@ -1,0 +1,7 @@
+@import '~antd/dist/reset.css';
+.ant-input {
+  padding-left: 4px !important;
+}
+.ant-select-selector{
+  height: 44px;
+}
