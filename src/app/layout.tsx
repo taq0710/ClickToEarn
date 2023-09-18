@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <body className={`${roboto.variable} ${inter.variable}`}>
+      <body className={`${roboto.variable} ${inter.variable} `}>
         <Providers>
           <StyledComponentsRegistry>
             <ConfigProvider theme={theme}>{children}</ConfigProvider>

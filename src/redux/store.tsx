@@ -4,8 +4,9 @@ import { HYDRATE } from "next-redux-wrapper";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 // import userReducer from "./features/user/userSlice"
+import loginReducer from "./features/login/loginSlice"
 const rootReducer = combineReducers({
-  // user: userReducer,
+  login: loginReducer,
 });
 
 const masterReducer = (state: any, action: AnyAction) => {
@@ -25,9 +26,9 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: masterReducer,
   middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: false,
-      }).concat(sagaMiddleware),
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(sagaMiddleware),
   devTools: process.env.NODE_ENV !== "production",
 });
 sagaMiddleware.run(rootSaga);
