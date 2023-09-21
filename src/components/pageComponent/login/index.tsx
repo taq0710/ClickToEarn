@@ -7,8 +7,12 @@ import { BiLogoFacebookCircle } from 'react-icons/bi'
 import Link from 'next/link';
 import { getItemLocalStorage } from "@/utils/localStorageUtil";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { loginHome } from "@/redux/features/login/loginSlice";
+import { loginAgency, loginHome } from "@/redux/features/auth/authSlice";
 import { signIn } from "next-auth/react"
+import { usePathname } from 'next/navigation'
+import Image from "next/image";
+import Logomain from "/public/Images/logomain.png"
+
 export interface ILoginProps {
 }
 
@@ -17,14 +21,15 @@ export default function Login(props: ILoginProps) {
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-
+    const pathname = usePathname()
     const [error, setError] = useState<string>("");
     const token = getItemLocalStorage("token")
     const dispatch = useAppDispatch();
     const loginInfo = useAppSelector((state) => state.login);
+
     const handleLogin = () => {
         if (email === "" || password === "") {
-            setError("Please complete all information");
+            alert("Please complete all information");
         } else {
             if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
                 setError("");
@@ -43,9 +48,12 @@ export default function Login(props: ILoginProps) {
             }
         }
     };
+    const href = pathname === '/login' ? '/register' : pathname === '/agency/login' ? '/agency/register' : '';
     return (
         <div className='flex justify-center mt-[50px] w-full '>
             <div className='w-full mx-[16px]'>
+                <div className={`mb-[26%] flex justify-center`}><Image src={Logomain} alt='cle-logo' /></div>
+
                 <form className='' >
                     <div className='flex flex-col gap-5 mb-[24px]'>
                         <div>
@@ -108,7 +116,7 @@ export default function Login(props: ILoginProps) {
                             </div>
                         </div>
                     </div>
-                    <div className='text-[12px] text-center'>Don’t have account? <span className='text-[#F9D916]'><Link href='/register'>Create now account</Link></span></div>
+                    <div className='text-[12px] text-center'>Don’t have account? <span className='text-[#F9D916]'><Link href={href}>Create now account</Link></span></div>
                 </div>
             </div>
         </div>

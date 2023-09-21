@@ -15,7 +15,7 @@ import {
   signUp,
   signUpFailure,
   signUpSuccess,
-} from "./loginSlice";
+} from "./authSlice";
 import { ILogin, ILoginSocial, ISignUp } from "@/interface";
 function* handleLogin() {
   yield takeEvery(loginHome.type, function* (payload: PayloadAction<ILogin>) {

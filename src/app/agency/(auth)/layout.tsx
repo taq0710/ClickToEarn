@@ -1,4 +1,3 @@
-import Header from '@/components/layout/header';
 import React, { ReactNode } from 'react';
 
 export interface LayoutUserProps {

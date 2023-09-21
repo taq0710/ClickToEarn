@@ -4,9 +4,9 @@ import { HYDRATE } from "next-redux-wrapper";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 // import userReducer from "./features/user/userSlice"
-import loginReducer from "./features/login/loginSlice"
+import authReducer from "./features/auth/authSlice"
 const rootReducer = combineReducers({
-  login: loginReducer,
+  auth: authReducer,
 });
 
 const masterReducer = (state: any, action: AnyAction) => {
