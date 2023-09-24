@@ -15,6 +15,7 @@ export interface ISignUp {
   password: string;
   firstName: string;
   lastName: string;
+  role: string;
 }
 export interface IPaging {
   page: number;

@@ -12,6 +12,7 @@ const factories = {
       data: data,
     });
   },
+
   requestLoginSocial: (data: ILoginSocial) => {
     return axios({
       method: "post",
@@ -26,6 +27,7 @@ const factories = {
       data: data,
     });
   },
+
   getUserInfo: () => {
     return axiosRequest({
       method: "get",

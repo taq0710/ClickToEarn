@@ -49,6 +49,7 @@ export const loginSlice = createSlice({
       state.error = action.payload;
       state.isLoggedIn = false;
     },
+
     loginBySocial: (state, action: PayloadAction<ILoginSocial>) => {
       state.isLoading = true;
     },
@@ -94,6 +95,7 @@ export const loginSlice = createSlice({
       state.error = action.payload;
       state.isLoggedIn = false;
     },
+
     getUserInfo: (state, action: PayloadAction) => {
       state.isLoading = true;
     },

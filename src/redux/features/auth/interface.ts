@@ -5,7 +5,7 @@ export interface UserResponse {
   firstName: string;
   lastName: string;
   avatar: string;
-  role: "user" | "admin";
+  role: "user" | "agency" | "admin";
   status: "active" | "inactive";
   signupType: SIGNUP_TYPE;
   createdAt: Date;
