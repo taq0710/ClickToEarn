@@ -1,9 +1,8 @@
+
 "use client"
-import { useState } from 'react';
 import Logomain from "/public/images/logomain.png"
 import Image from 'next/image';
 import Link from 'next/link';
-import Login from '../login';
 export interface IStartedProps {
 }
 
