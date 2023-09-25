@@ -13,8 +13,7 @@ export enum SIGNUP_TYPE {
 export interface ISignUp {
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   role: string;
 }
 export interface IPaging {

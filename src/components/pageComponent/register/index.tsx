@@ -20,8 +20,7 @@ export interface IRegisterProps {
 export default function Register(props: IRegisterProps) {
     const [showPassword, toggleShowPassword] = useToggle(false);
     const [passwordMatchError, setPasswordMatchError] = React.useState("");
-    const [firstName, setFirstName] = React.useState("")
-    const [lastName, setLastName] = React.useState("")
+    const [fullName, setFullName] = React.useState("")
     const [email, setEmail] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -49,7 +48,7 @@ export default function Register(props: IRegisterProps) {
         }
     };
     const handleLogin = () => {
-        if (email === "" || password === "" || firstName === "" || lastName === "" || password === "" || password !== confirmPassword) {
+        if (email === "" || password === "" || fullName === "" || password === "" || password !== confirmPassword) {
             alert("Vui kiểm tra lại thông tin ");
         } else {
             if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
@@ -59,15 +58,13 @@ export default function Register(props: IRegisterProps) {
                         type: signUp({
                             email: email,
                             password: password,
-                            firstName: firstName,
-                            lastName: lastName,
+                            fullName: fullName,
                             role: "user"
                         }).type,
                         payload: {
                             email: email,
                             password: password,
-                            firstName: firstName,
-                            lastName: lastName,
+                            fullName: fullName,
                             role: "user"
                         },
                     });
@@ -76,15 +73,13 @@ export default function Register(props: IRegisterProps) {
                         type: signUp({
                             email: email,
                             password: password,
-                            firstName: firstName,
-                            lastName: lastName,
+                            fullName: fullName,
                             role: "agency"
                         }).type,
                         payload: {
                             email: email,
                             password: password,
-                            firstName: firstName,
-                            lastName: lastName,
+                            fullName: fullName,
                             role: "agency"
                         },
                     });
@@ -95,25 +90,11 @@ export default function Register(props: IRegisterProps) {
         }
     }
     return (
-        <div className='flex justify-center mt-[50px] w-full '>
-
+        <div className='flex justify-center mt-[50px]  '>
             <div className='w-full mx-[16px]'>
-                <div className={`mb-[26%] flex justify-center`}><Image src={Logomain} alt='cle-logo' /></div>
+                <div className={`xl:mb-[26%] flex justify-center`}><Image src={Logomain} alt='cle-logo' /></div>
                 <form className='' >
                     <div className='flex flex-col gap-5 mb-[24px]'>
-                        <div>
-                            <div className='text-[14px] mb-[6px] ml-3'>
-                                <label htmlFor="">Họ tên đệm</label>
-                            </div>
-                            <input
-                                className='rounded-[8px] border-[2px] border-[#F9D916] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500'
-                                type="text"
-                                placeholder='Nguyễn Văn '
-                                value={firstName}
-                                onChange={(e) => setFirstName(e.target.value)}
-                                required
-                            />
-                        </div>
                         <div>
                             <div className='text-[14px] mb-[6px] ml-3'>
                                 <label htmlFor="">Họ và tên</label>
@@ -121,9 +102,9 @@ export default function Register(props: IRegisterProps) {
                             <input
                                 className='rounded-[8px] border-[2px] border-[#F9D916] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500'
                                 type="text"
-                                placeholder='A'
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
+                                placeholder=' Nguyễn Văn A'
+                                value={fullName}
+                                onChange={(e) => setFullName(e.target.value)}
                                 required
                             />
                         </div>
@@ -148,7 +129,7 @@ export default function Register(props: IRegisterProps) {
                                 <input
                                     className='rounded-[8px] border-[2px] border-[#F9D916] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500'
                                     type={showPassword ? "text" : "password"}
-                                    placeholder='Enter Your Password'
+                                    placeholder='Nhập mật khẩu'
                                     value={password}
                                     onChange={handlePasswordChange}
                                     id="password"
@@ -177,7 +158,7 @@ export default function Register(props: IRegisterProps) {
                                 <input
                                     className='rounded-[8px] border-[2px] border-[#F9D916] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500'
                                     type={showPassword ? "text" : "password"}
-                                    placeholder='Confirm Your Password'
+                                    placeholder='Nhập lại mật khẩu'
                                     value={confirmPassword}
                                     onChange={handleConfirmPasswordChange}
                                     id="confirmPassword"
@@ -203,10 +184,10 @@ export default function Register(props: IRegisterProps) {
                         </div>
                     </div>
 
-                    <div onClick={handleLogin} className='w-full flex justify-center items-center h-[48px] rounded-[5px] bg-[#F6BD13] text-base font-semibold mb-[78px] cursor-pointer text-white'>Register</div>
+                    <div onClick={handleLogin} className='w-full flex justify-center items-center h-[48px] rounded-[5px] bg-[#F6BD13] text-base font-semibold mb-[78px] cursor-pointer text-white'>Đăng ký</div>
                 </form>
                 <div>
-                    <div className='text-center text-[#828282] text-[14px] mb-[16px]'>Or continue with</div>
+                    <div className='text-center text-[#828282] text-[14px] mb-[16px]'>Hoặc tiếp tục với</div>
                     <div className='flex justify-center'>
                         <div className='flex justify-between mb-[16px] w-[340px]'>
                             <div className='flex px-[36px] py-[10px] w-[163px] gap-1 justify-center bg-[#E3E2E9] rounded cursor-pointer items-center'><FcGoogle className="text-lg" />Google</div>
