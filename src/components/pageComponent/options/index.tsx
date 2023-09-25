@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import * as React from 'react';
-import UserDefault from "/public/Images/userdefault.png";
-import Coin from "/public/Images/coin.png";
-import Mission from "/public/Images/Frame 427320665.png"
+import UserDefault from "/public/images/userdefault.png";
+import Coin from "/public/images/coin.png";
+import Mission from "/public/images/Frame 427320665.png"
 import { BiHistory, BiReceipt } from "react-icons/bi"
 import { BsChevronRight } from "react-icons/bs"
 import { PiUsersThree } from "react-icons/pi"

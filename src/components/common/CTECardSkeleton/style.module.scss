@@ -1,0 +1,38 @@
+.skeleton{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4;
+  .containerRatio {
+    position: relative;
+    width: 100%;
+    padding-top:50%;
+  }
+  .content{
+    width: 100%;
+    margin-right: 10px;
+  }
+  .button{
+    width: 200px;
+  }
+  .contentWrapper{
+    gap: 4;
+  }
+  :global{
+    .ant-space-item{
+      width: 100%;
+    }
+    .ant-skeleton-image{
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 100% !important;
+      width: 100% !important;
+    }
+    .ant-skeleton-button{
+      width: 130px !important;
+    }
+  }
+}

@@ -14,8 +14,18 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        sans: ['var(--font-inter)'],
-        mono: ['var(--font-roboto-mono)'],
+        inter: ['var(--font-inter)'],
+        roboto: ['var(--font-roboto)'],
+      },
+      colors: {
+        primary1: "#FFFDE7",
+        primary2: "#FFFCCF",
+        primary3: "#FFFAB7",
+        primary4: "#FFF99F",
+        primary5: "#FFF56F",
+        primary6: "#F9D916",
+        primary7: "#F6BD13",
+        gray1:"#828282"
       },
     },
   },
