@@ -1,7 +1,7 @@
 'user client';
 import Image from 'next/image';
 import { HiMiniBars3 } from 'react-icons/hi2'
-import Logomain from '/public/Images/logomain.png'
+import Logomain from '/public/images/logomain.png'
 import { FaRegCircleUser } from "react-icons/fa6"
 export interface HeaderProps { }
 

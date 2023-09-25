@@ -1,7 +1,8 @@
+
 import DashBoard from '@/components/pageComponent/dashboard';
 import * as React from 'react';
 
-export interface IDashboardPageProps {
+export interface  IDashboardPageProps {
 }
 
 export default function DashboardPage(props: IDashboardPageProps) {
@@ -10,4 +11,4 @@ export default function DashboardPage(props: IDashboardPageProps) {
             <DashBoard />
         </div>
     );
-}
+  }
