@@ -3,10 +3,11 @@ import { AnyAction, combineReducers, configureStore } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
-// import userReducer from "./features/user/userSlice"
+import userReducer from "./features/user/userSlice"
 import authReducer from "./features/auth/authSlice"
 const rootReducer = combineReducers({
   auth: authReducer,
+  user: userReducer,
 });
 
 const masterReducer = (state: any, action: AnyAction) => {

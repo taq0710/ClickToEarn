@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import { BsChevronRight } from "react-icons/bs"
 import { MdAddCircleOutline } from "react-icons/md"
-import Model from '../../common/Model';
 import { IoMdPersonAdd } from "react-icons/io"
 import { BsFillDatabaseFill } from "react-icons/bs"
+import Model from '@/components/common/Model';
 export interface IWithdrawProps {
 }
 

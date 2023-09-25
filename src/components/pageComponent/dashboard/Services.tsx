@@ -111,11 +111,11 @@ export default function Services(props: IServicesProps) {
                                 <input className='w-[80%] h-[40px] p-2 border border-[#F9D916]' type="text" />
                             </div>
                             <div className='flex  mb-3'>
-                                <label htmlFor="" className='w-[20%]'>Lượt xem</label>
+                                <label htmlFor="" className='w-[20%]'>Visit</label>
                                 <input className='w-[80%] h-[40px] p-2 border border-[#F9D916]' type="number" />
                             </div>
                             <div className='flex  mb-3'>
-                                <label htmlFor="" className='w-[20%]'>Lượt đăng ký</label>
+                                <label htmlFor="" className='w-[20%]'>Giờ xem</label>
                                 <input className='w-[80%] h-[40px] p-2 border border-[#F9D916]' type="number" />
                             </div>
 
