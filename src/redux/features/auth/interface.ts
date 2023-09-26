@@ -1,14 +1,21 @@
 import { SIGNUP_TYPE } from "@/interface";
 
 export interface UserResponse {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  avatar: string;
-  role: "user" | "agency" | "admin";
-  status: "active" | "inactive";
-  signupType: SIGNUP_TYPE;
-  createdAt: Date;
-  updatedAt: Date;
-  token: string | undefined;
+  user: {
+    id: string;
+    email: string;
+    fullName: string;
+    avatarUrl: string;
+    createdAt: Date;
+    updatedAt: Date;
+    role: string;
+  };
+  token: {
+    accessToken: string;
+    refreshToken?: string;
+  };
+}
+export interface IRegisterResponse {
+  message: string;
+  statusCode: number | null;
 }

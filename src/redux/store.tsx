@@ -5,9 +5,11 @@ import createSagaMiddleware from "redux-saga";
 import rootSaga from "./sagas";
 import userReducer from "./features/user/userSlice"
 import authReducer from "./features/auth/authSlice"
+import agencyReducer from "./features/agency/agencySlice"
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
+  agency: agencyReducer,
 });
 
 const masterReducer = (state: any, action: AnyAction) => {

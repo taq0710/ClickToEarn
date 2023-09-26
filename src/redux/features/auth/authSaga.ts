@@ -1,11 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
 import factories from "./factories";
-
 import {
-  getUserInfo,
-  getUserInfoFailure,
-  getUserInfoSuccess,
   loginBySocial,
   loginBySocialFailure,
   loginBySocialSuccess,
@@ -24,8 +20,17 @@ function* handleLogin() {
         factories.requestLogin(payload.payload)
       );
       console.log(response);
-      if (response.data.success) {
-        localStorage.setItem("token", response.data.data.token);
+      if (response.data.message === "Success") {
+        localStorage.setItem(
+          "accesstoken",
+          response.data.data.token.accessToken
+        );
+        localStorage.setItem(
+          "refreshtoken",
+          response.data.data.token.refreshToken
+        );
+        console.log(response.data.data.token.refreshToken);
+
         yield put({
           type: loginHomeSuccess.type,
           payload: response.data.data,
@@ -39,7 +44,6 @@ function* handleLogin() {
     } catch (error) {
       yield put({
         type: loginHomeFailure.type,
-        // error
       });
     }
   });
@@ -67,7 +71,6 @@ function* handleLoginBySocial() {
       } catch (error) {
         yield put({
           type: loginBySocialFailure.type,
-          // error
         });
       }
     }
@@ -79,11 +82,10 @@ function* handleSignUp() {
       const response: any = yield call(() =>
         factories.requestSignUp(payload.payload)
       );
-      if (response.data.success) {
-        localStorage.setItem("token", response.data.data.token);
+      if (response.data.message === "Success") {
         yield put({
           type: signUpSuccess.type,
-          payload: response.data.data,
+          payload: response.data,
         });
       } else {
         yield put({
@@ -94,33 +96,11 @@ function* handleSignUp() {
     } catch (error) {
       yield put({
         type: signUpFailure.type,
-        // error
-      });
-    }
-  });
-}
-function* handleGetUserInfo() {
-  yield takeEvery(getUserInfo.type, function* (payload: PayloadAction) {
-    try {
-      const response: any = yield call(() => factories.getUserInfo());
-      yield put({
-        type: getUserInfoSuccess.type,
-        payload: response,
-      });
-    } catch (error) {
-      yield put({
-        type: getUserInfoFailure.type,
-        // error
       });
     }
   });
 }
 
 export default function* rootSaga() {
-  yield all([
-    fork(handleLogin),
-    fork(handleLoginBySocial),
-    fork(handleSignUp),
-    fork(handleGetUserInfo),
-  ]);
+  yield all([fork(handleLogin), fork(handleLoginBySocial), fork(handleSignUp)]);
 }
