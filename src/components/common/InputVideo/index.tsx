@@ -2,23 +2,22 @@
 import React, { useRef } from "react";
 import { IconContext } from "react-icons";
 import { AiOutlineClose } from "react-icons/ai";
-import { uploadFile } from "../../../utils/upload.api";
 import Image from "next/image";
 
-interface IInputFile {
+interface IInputVideo {
   onChange?: (value: FileList | null) => void;
 }
 
-const InputFile = ({ onChange }: IInputFile) => {
-  const [imagePreview, setImagePreview] = React.useState<string>("");
+const InputVideo = ({ onChange }: IInputVideo) => {
+  const [videoPreview, setVideoPreview] = React.useState<string | null>();
 
   const inputFileRef = useRef<HTMLInputElement>();
-  const wrapperImageRef = useRef<HTMLDivElement>();
+  const wrapperVideoRef = useRef<HTMLDivElement>();
 
-  const onDragEnter = () => wrapperImageRef.current?.classList.add("dragover");
+  const onDragEnter = () => wrapperVideoRef.current?.classList.add("dragover");
 
   const onDragLeave = () =>
-    wrapperImageRef.current?.classList.remove("dragover");
+    wrapperVideoRef.current?.classList.remove("dragover");
 
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -26,51 +25,49 @@ const InputFile = ({ onChange }: IInputFile) => {
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    wrapperImageRef.current?.classList.remove("dragover");
-    handleImageData(e.dataTransfer.files);
+    wrapperVideoRef.current?.classList.remove("dragover");
+    handleVideoData(e.dataTransfer.files);
   };
 
   const handleInputFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleImageData(e.target.files);
+    handleVideoData(e.target.files);
     onChange && onChange(e.target.files);
   };
 
-  const handleImageData = (files: FileList | null) => {
+  const handleVideoData = (files: FileList | null) => {
     if (files && files.length > 0) {
-      setImagePreview(URL.createObjectURL(files[0]));
+      setVideoPreview(URL.createObjectURL(files[0]));
     } else {
-      setImagePreview("");
+      setVideoPreview(null);
     }
   };
 
-  const handleCloseImagePreview = () => {
-    setImagePreview("");
+  const handleCloseVideoPreview = () => {
+    setVideoPreview(null);
   };
 
   return (
     <>
       <div
-        className={`border-dashed flex justify-center items-center border-2 rounded transition relative w-full h-full  ${
-          !imagePreview && "cursor-pointer hover:bg-orange-50"
+        className={` flex justify-center items-center border-2 rounded transition relative w-full h-full  ${
+          !videoPreview && "cursor-pointer hover:bg-orange-50"
         }`}
         onDragEnter={onDragEnter}
         onDragLeave={onDragLeave}
         onDrop={onDrop}
         onDragOver={onDragOver}
-        onClick={() => !imagePreview && inputFileRef.current?.click()}
+        onClick={() => !videoPreview && inputFileRef.current?.click()}
       >
-        {imagePreview ? (
-          <div className="absolute h-full">
-            <Image
-              width={800}
-              height={400}
-              src={imagePreview}
-              alt=""
-              className="h-full rounded-md"
-            />
+        {videoPreview ? (
+          <div className=" h-full">
+            <video
+              src={videoPreview}
+              className="w-[800px] h-[400px]"
+              controls
+            ></video>
             <div
               className="absolute top-0 right-0 cursor-pointer"
-              onClick={handleCloseImagePreview}
+              onClick={handleCloseVideoPreview}
             >
               <IconContext.Provider
                 value={{
@@ -85,7 +82,7 @@ const InputFile = ({ onChange }: IInputFile) => {
           </div>
         ) : (
           <span className="text-gray-400 text-sm">
-            Click to upload or drag and drop SVG, PNG, JPG or GIF{" "}
+            Click to upload or drag and drop Video{" "}
           </span>
         )}
       </div>
@@ -94,11 +91,11 @@ const InputFile = ({ onChange }: IInputFile) => {
         type={"file"}
         onChange={handleInputFileChange}
         className="invisible"
-        accept="image/*"
-        key={imagePreview || ""}
+        accept="video/*"
+        key={videoPreview || ""}
       />
     </>
   );
 };
 
-export default InputFile;
+export default InputVideo;

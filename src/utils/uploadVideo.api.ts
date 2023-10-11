@@ -1,11 +1,11 @@
 import axios from "axios";
 import { axiosRequest } from "./axiosRequest";
 
-const uploadFile = async (file: File): Promise<any> => {
+const uploadFileVideo = async (file: File): Promise<any> => {
   const formData = new FormData();
   formData.append("files", file, file.name);
   const res = await axiosRequest({
-    url: "uploads/local",
+    url: "uploads/S3",
     data: formData,
     method: "POST",
     headers: {
@@ -16,4 +16,4 @@ const uploadFile = async (file: File): Promise<any> => {
   return res.data;
 };
 
-export { uploadFile };
+export { uploadFileVideo };

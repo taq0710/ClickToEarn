@@ -1,54 +1,68 @@
 "use client"
-import { useState } from "react"
-import { useToggle } from "react-use";
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs'
-import { FcGoogle } from 'react-icons/fc'
-import { BiLogoFacebookCircle } from 'react-icons/bi'
-import Link from 'next/link';
-import { getItemLocalStorage } from "@/utils/localStorageUtil";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { loginHome } from "@/redux/features/auth/authSlice";
-import { signIn } from "next-auth/react"
-import { usePathname } from 'next/navigation'
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { getItemLocalStorage } from "@/utils/localStorageUtil";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
-import Logomain from "/public/Images/logomain.png"
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { useState } from "react";
+import { BiLogoFacebookCircle } from 'react-icons/bi';
+import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
+import { FcGoogle } from 'react-icons/fc';
+import { useToggle } from "react-use";
+import Logomain from "/public/Images/logomain.png";
 
 export interface ILoginProps {
 }
 
 export default function Login(props: ILoginProps) {
-    const [showPassword, toggleShowPassword] = useToggle(false);
 
+    const [showPassword, toggleShowPassword] = useToggle(false);
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const pathname = usePathname()
     const [error, setError] = useState<string>("");
-    const token = getItemLocalStorage("token")
     const dispatch = useAppDispatch();
     const loginInfo = useAppSelector((state) => state.login);
-
-    const handleLogin = () => {
+    const router = useRouter()
+    const handleLogin = async () => {
         if (email === "" || password === "") {
             alert("Please complete all information");
         } else {
             if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
                 setError("");
-                dispatch({
-                    type: loginHome({
-                        email: email,
-                        password: password,
-                    }).type,
-                    payload: {
-                        email: email,
-                        password: password,
-                    },
-                });
+                try {
+                    const result = await dispatch({
+                        type: loginHome({
+                            email: email,
+                            password: password,
+                        }).type,
+                        payload: {
+                            email: email,
+                            password: password,
+                        },
+                    });
+                    setTimeout(() => {
+                        if (pathname === "/dang-nhap") {
+                            router.push("/")
+                        } else if (pathname === "/agency/login") {
+                            router.push("/agency/dashboard")
+                        }
+                    }, 1000)
+                } catch (error) {
+                    // Xử lý lỗi
+                    console.error(error); // In lỗi ra console
+                }
             } else {
                 setError("Invalid email!");
             }
         }
+        // router.refresh()
+
     };
     const href = pathname === '/dang-nhap' ? '/dang-ky' : pathname === '/agency/login' ? '/agency/register' : '';
+
     return (
         <div className='flex justify-center mt-[50px] w-full '>
             <div className='w-full mx-[16px]'>

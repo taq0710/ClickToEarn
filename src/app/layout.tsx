@@ -18,8 +18,8 @@ const roboto = Roboto({
 });
 export const metadata: Metadata = {
   title: {
-    template:'%s | ClickToEarn',
-    default:'ClickToEarn'
+    template: '%s | ClickToEarn',
+    default: 'ClickToEarn'
   },
   description: 'Click To Earn website',
 };
@@ -29,6 +29,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`${roboto.variable} ${inter.variable} font-roboto`}>

@@ -1,17 +1,15 @@
 "use client"
 import { signUp } from '@/redux/features/auth/authSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { getItemLocalStorage } from '@/utils/localStorageUtil';
+import { useAppDispatch } from '@/redux/hooks';
 import { signIn } from 'next-auth/react';
-import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import * as React from 'react';
 import { BiLogoFacebookCircle } from 'react-icons/bi';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { useToggle } from 'react-use';
-import Logomain from "/public/Images/logomain.png"
-import Image from 'next/image';
+import Logomain from "/public/Images/logomain.png";
 
 
 export interface IRegisterProps {
@@ -26,9 +24,7 @@ export default function Register(props: IRegisterProps) {
     const [confirmPassword, setConfirmPassword] = React.useState("");
     const pathname = usePathname()
     const [error, setError] = React.useState<string>("");
-    const token = getItemLocalStorage("token")
     const dispatch = useAppDispatch();
-    const loginInfo = useAppSelector((state) => state.login);
     const handleConfirmPasswordChange = (e: any) => {
         const newConfirmPassword = e.target.value;
         setConfirmPassword(newConfirmPassword);
@@ -47,48 +43,34 @@ export default function Register(props: IRegisterProps) {
             setPasswordMatchError("");
         }
     };
-    const handleLogin = () => {
+    const handleRegister = () => {
         if (email === "" || password === "" || fullName === "" || password === "" || password !== confirmPassword) {
             alert("Vui kiểm tra lại thông tin ");
         } else {
             if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) {
                 setError("");
-                if (pathname === "/register") {
-                    dispatch({
-                        type: signUp({
-                            email: email,
-                            password: password,
-                            fullName: fullName,
-                            role: "user"
-                        }).type,
-                        payload: {
-                            email: email,
-                            password: password,
-                            fullName: fullName,
-                            role: "user"
-                        },
-                    });
+                if (pathname === "/dang-ky") {
+                    dispatch(signUp({
+                        email: email,
+                        password: password,
+                        fullName: fullName,
+                        role: "client"
+                    }))
+
                 } else if (pathname === "/agency/register") {
-                    dispatch({
-                        type: signUp({
-                            email: email,
-                            password: password,
-                            fullName: fullName,
-                            role: "agency"
-                        }).type,
-                        payload: {
-                            email: email,
-                            password: password,
-                            fullName: fullName,
-                            role: "agency"
-                        },
-                    });
+                    dispatch(signUp({
+                        email: email,
+                        password: password,
+                        fullName: fullName,
+                        role: "agency"
+                    }))
                 }
             } else {
                 setError("Invalid email!");
             }
         }
     }
+
     return (
         <div className='flex justify-center mt-[50px]  '>
             <div className='w-full mx-[16px]'>
@@ -184,7 +166,7 @@ export default function Register(props: IRegisterProps) {
                         </div>
                     </div>
 
-                    <div onClick={handleLogin} className='w-full flex justify-center items-center h-[48px] rounded-[5px] bg-[#F6BD13] text-base font-semibold mb-[78px] cursor-pointer text-white'>Đăng ký</div>
+                    <div onClick={handleRegister} className='w-full flex justify-center items-center h-[48px] rounded-[5px] bg-[#F6BD13] text-base font-semibold mb-[78px] cursor-pointer text-white'>Đăng ký</div>
                 </form>
                 <div>
                     <div className='text-center text-[#828282] text-[14px] mb-[16px]'>Hoặc tiếp tục với</div>

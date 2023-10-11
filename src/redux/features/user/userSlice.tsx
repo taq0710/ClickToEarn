@@ -1,42 +1,49 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-import { IUserDetail } from './interface';
-import { RootState } from '@/redux/store';
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "@/redux/store";
+import { IUserDetail } from "./interface";
 
-const initialState: any = {
+interface AgencyState {
+  isLoading: boolean;
+  error: string;
+  info: IUserDetail | null
+}
+
+const initialState: AgencyState = {
   isLoading: false,
-  error: '',
-  info: {},
+  error: "",
+  info: null
 };
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
-    getProfile: (state, action: PayloadAction<string>) => {
+    getUser: (state, action: PayloadAction) => {
       state.isLoading = true;
     },
-    getProfileSuccess: (state, action: PayloadAction<IUserDetail>) => {
+    getUserSuccess: (state, action: PayloadAction<IUserDetail>) => {
       state.isLoading = false;
-      state.error = '';
-      state.detail = action.payload;
+      state.error = "";
+      state.info = action.payload;
+      // debugger;
     },
-    getProfileFailure: (state, action: PayloadAction<string>) => {
+    getUserFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
     },
-    
   },
 });
 
 export const {
-  getProfile,
-  getProfileSuccess,
-  getProfileFailure,
+  getUser,
+  getUserFailure,
+  getUserSuccess
 } = userSlice.actions;
 
+// Other code such as selectors can use the imported `RootState` type
 export const selectIsLoading = (state: RootState) => state.user.isLoading;
 export const selectError = (state: RootState) => state.user.error;
-export const selectInfo = (state: RootState) => state.user.info;
+export const selectInfor = (state: RootState) => state.user.info;
 
 export default userSlice.reducer;
