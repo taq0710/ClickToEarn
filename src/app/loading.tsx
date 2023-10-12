@@ -1,11 +1,5 @@
+export interface LoadingProps {}
 
-export interface  LoadingProps {
-}
-
-export default function Loading (props:  LoadingProps) {
-  return (
-    <div>
-      Loading...............
-    </div>
-  );
+export default function Loading(props: LoadingProps) {
+  return <div>Loading...............</div>;
 }
