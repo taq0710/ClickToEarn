@@ -1,8 +1,8 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "@/redux/store";
-import { UserResponse } from "./interface";
-import { ILogin, ILoginSocial, ISignUp, SIGNUP_TYPE } from "@/interface";
+import { IRegisterResponse, UserResponse } from "./interface";
+import { ILogin, ILoginSocial, ISignUp } from "@/interface";
 import { getItemLocalStorage } from "@/utils/localStorageUtil";
 
 interface LoginState {
@@ -10,6 +10,7 @@ interface LoginState {
   isLoading: boolean;
   error: string;
   isLoggedIn: boolean;
+  registerresponse: IRegisterResponse;
 }
 
 const initialState: LoginState = {
@@ -17,19 +18,25 @@ const initialState: LoginState = {
   error: "",
   isLoggedIn: false,
   info: {
-    _id: "",
-    firstName: "",
-    lastName: "",
-    avatar: "",
-    role: "user",
-    status: "inactive",
-    signupType: SIGNUP_TYPE.EMAIL_PASSWORD,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    token: "",
+    user: {
+      id: "",
+      email: "",
+      fullName: "",
+      avatarUrl: "",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      role: "",
+    },
+    token: {
+      accessToken: "",
+      refreshToken: "",
+    },
+  },
+  registerresponse: {
+    message: "",
+    statusCode: null,
   },
 };
-const token = getItemLocalStorage("token");
 
 export const loginSlice = createSlice({
   name: "login",
@@ -64,55 +71,19 @@ export const loginSlice = createSlice({
       state.error = action.payload;
       state.isLoggedIn = false;
     },
-    logoutPage: (state, action: PayloadAction) => {
-      state.isLoading = false;
-      state.error = "";
-      state.isLoggedIn = false;
-      state.info = {
-        _id: "",
-        firstName: "",
-        lastName: "",
-        avatar: "",
-        role: "user",
-        status: "inactive",
-        signupType: SIGNUP_TYPE.EMAIL_PASSWORD,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        token: "",
-      };
-    },
     signUp: (state, action: PayloadAction<ISignUp>) => {
       state.isLoading = true;
     },
-    signUpSuccess: (state, action: PayloadAction<UserResponse>) => {
+    signUpSuccess: (state, action: PayloadAction<IRegisterResponse>) => {
       state.isLoading = false;
       state.error = "";
       state.isLoggedIn = true;
-      state.info = action.payload;
+      state.registerresponse = action.payload;
     },
     signUpFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
       state.isLoggedIn = false;
-    },
-
-    getUserInfo: (state, action: PayloadAction) => {
-      state.isLoading = true;
-    },
-    getUserInfoSuccess: (state, action: PayloadAction<UserResponse>) => {
-      state.isLoading = false;
-      state.error = "";
-      state.isLoggedIn = true;
-      if (token !== null) state.info = { ...action.payload, token: token };
-      else {
-        state.info = { ...action.payload };
-      }
-    },
-    getUserInfoFailure: (state, action: PayloadAction<string>) => {
-      state.isLoading = false;
-      state.error = action.payload;
-      state.isLoggedIn = false;
-      localStorage.removeItem("token");
     },
   },
 });
@@ -124,13 +95,9 @@ export const {
   loginBySocial,
   loginBySocialSuccess,
   loginBySocialFailure,
-  logoutPage,
   signUp,
   signUpSuccess,
   signUpFailure,
-  getUserInfo,
-  getUserInfoSuccess,
-  getUserInfoFailure,
 } = loginSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
@@ -138,5 +105,7 @@ export const selectIsLoading = (state: RootState) => state.login.isLoading;
 export const selectError = (state: RootState) => state.login.error;
 export const selectAgentInfor = (state: RootState) => state.login.info;
 export const selectIsLoggedIn = (state: RootState) => state.login.isLoggedIn;
+export const selectRegister = (state: RootState) =>
+  state.login.registerresponse;
 
 export default loginSlice.reducer;

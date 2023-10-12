@@ -5,6 +5,10 @@ export interface ILogin {
 export interface ILoginSocial {
   token: string;
 }
+export enum PACKAGENCY_TYPE {
+  YOUTUBE = "Youtube",
+  WEBSITE = "Website",
+}
 export enum SIGNUP_TYPE {
   EMAIL_PASSWORD = "email password",
   GOOGLE = "google",

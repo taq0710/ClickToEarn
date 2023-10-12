@@ -1,6 +1,5 @@
 export interface IUserDetail {
-  _id: string;
-  useName: string;
-  level: number;
-  email: string;
+  fullname: string;
+  role: string;
+  avatar: string;
 }
