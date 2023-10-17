@@ -6,10 +6,9 @@ import { signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import { BiLogoFacebookCircle } from "react-icons/bi";
-import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { useToggle } from "react-use";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import CTEInput from "@/components/common/CTEInput";
 
 export interface IRegisterProps {}
 
@@ -100,80 +99,38 @@ export default function Register(props: IRegisterProps) {
         <div>
           <form className="">
             <div className="flex flex-col gap-5 mb-[24px]">
-              <div>
-                <div className="text-[14px] mb-[6px] ml-3">
-                  <label htmlFor="">Email</label>
-                </div>
-                <input
-                  className="rounded-[8px] border-[2px] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500"
-                  type="email"
-                  placeholder="example@gmail.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <div className="text-[14px] mb-[6px] ml-3">
-                  <label htmlFor="">Mật khẩu</label>
-                </div>
-                <div className="relative">
-                  <input
-                    className="rounded-[8px] border-[2px] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Nhập mật khẩu"
-                    value={password}
-                    onChange={handlePasswordChange}
-                    id="password"
-                    required
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center justify-center w-8">
-                    <button
-                      type="button"
-                      className="focus:outline-none text-neutral-500"
-                      onClick={toggleShowPassword}
-                    >
-                      {showPassword ? (
-                        <AiOutlineEyeInvisible className=" text-[24px]" />
-                      ) : (
-                        <AiOutlineEye className=" text-[24px]" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className="text-[14px] mb-[6px] ml-3">
-                  <label htmlFor="">Nhập lại mật khẩu</label>
-                </div>
-                <div className="relative">
-                  <input
-                    className="rounded-[8px] border-[2px] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Nhập lại mật khẩu"
-                    value={confirmPassword}
-                    onChange={handleConfirmPasswordChange}
-                    id="confirmPassword"
-                    required
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center justify-center w-8">
-                    <button
-                      type="button"
-                      className="focus:outline-none text-neutral-500"
-                      onClick={toggleShowPassword}
-                    >
-                      {showPassword ? (
-                        <AiOutlineEyeInvisible className=" text-[24px]" />
-                      ) : (
-                        <AiOutlineEye className=" text-[24px]" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-                {passwordMatchError && (
-                  <p className="text-red-500">{passwordMatchError}</p>
-                )}
-              </div>
+              <CTEInput
+                name="email"
+                label="Email"
+                type="email"
+                placeholder="example@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <CTEInput
+                name="password"
+                type="password"
+                placeholder="Nhập mật khẩu"
+                label="Mật khẩu"
+                value={password}
+                onChange={handlePasswordChange}
+                id="password"
+                required
+              />
+              <CTEInput
+                name="confirmPassword"
+                type={showPassword ? "text" : "password"}
+                placeholder="Nhập lại mật khẩu"
+                label="Xác nhận mật khẩu"
+                value={confirmPassword}
+                onChange={handleConfirmPasswordChange}
+                id="confirmPassword"
+                required
+              />
+              {passwordMatchError && (
+                <p className="text-red-500">{passwordMatchError}</p>
+              )}
             </div>
 
             <div className="w-full flex justify-center">

@@ -4,23 +4,21 @@ import { useToggle } from "react-use";
 import { FcGoogle } from "react-icons/fc";
 import { BiLogoFacebookCircle } from "react-icons/bi";
 import Link from "next/link";
-import { getItemLocalStorage } from "@/utils/localStorageUtil";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { loginHome } from "@/redux/features/auth/authSlice";
 import { signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import CTEInput from "@/components/common/CTEInput";
 
 export interface ILoginProps {}
 
 export default function Login(props: ILoginProps) {
   const [showPassword, toggleShowPassword] = useToggle(false);
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const pathname = usePathname();
   const [error, setError] = useState<string>("");
-  const token = getItemLocalStorage("token");
   const dispatch = useAppDispatch();
   const loginInfo = useAppSelector((state) => state.login);
 
@@ -60,48 +58,25 @@ export default function Login(props: ILoginProps) {
         <div>
           <form className="">
             <div className="flex flex-col gap-5 mb-[24px]">
-              <div>
-                <div className="text-[16px] mb-[6px] ml-3 font-semibold">
-                  <label htmlFor="">Email</label>
-                </div>
-                <input
-                  className="rounded-[8px] border-[2px] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500"
-                  type="email"
-                  placeholder="example@gmail.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <div className="text-[16px] mb-[6px] ml-3 font-semibold">
-                  <label htmlFor="">Mật khẩu</label>
-                </div>
-                <div className="relative">
-                  <input
-                    className="rounded-[8px] border-[2px] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Nhập mật khẩu"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <div className="absolute inset-y-0 right-0 flex items-center justify-center w-8">
-                    <button
-                      type="button"
-                      className="focus:outline-none text-neutral-500"
-                      onClick={toggleShowPassword}
-                    >
-                      {showPassword ? (
-                        <AiOutlineEyeInvisible className=" text-[24px]" />
-                      ) : (
-                        <AiOutlineEye className=" text-[24px]" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <CTEInput
+                name="email"
+                label="Email"
+                type="email"
+                placeholder="example@gmail.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <CTEInput
+                name="Mật khẩu"
+                label="Mật khẩu"
+                type="password"
+                placeholder="Nhập mật khẩu"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className="flex justify-end mb-[34px]">
-              <div className="text-[15px] text-[#FD4B4B] font-semibold cursor-pointer">
+              <div className="text-[12px] text-[#FD4B4B] font-normal cursor-pointer">
                 Quên mật khẩu?
               </div>
             </div>
@@ -115,7 +90,7 @@ export default function Login(props: ILoginProps) {
             </div>
           </form>
           <div>
-            <div className="text-center py-[33px] text-[#727272] text-[14px]">
+            <div className="text-center py-[33px] text-[#727272] text-[12px]">
               Hoặc đăng nhập với
             </div>
             <div className="flex justify-center">

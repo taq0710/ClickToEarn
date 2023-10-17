@@ -1,8 +1,8 @@
 import { InputHTMLAttributes, ReactNode } from "react";
 import { useToggle } from "react-use";
 import { UseFormRegister } from "react-hook-form";
-import { AiOutlineEyeInvisible,AiOutlineEye } from 'react-icons/ai';
-export interface MBInputProps extends InputHTMLAttributes<HTMLInputElement> {
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
+export interface CTEInputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
   icon?: ReactNode;
   iconLeft?: ReactNode;
@@ -15,11 +15,10 @@ export interface MBInputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   required?: boolean;
   description?: string;
-  error?:string;
-  register: UseFormRegister<any>;
+  error?: string;
 }
 
-export default function MBInput({
+export default function CTEInput({
   placeholder,
   icon,
   iconLeft,
@@ -34,15 +33,14 @@ export default function MBInput({
   name,
   description,
   error,
-  register,
   ...props
-}: MBInputProps) {
+}: CTEInputProps) {
   const [showPassword, toggleShowPassword] = useToggle(false);
   return (
     <div className={`w-full ${className}`}>
       {label && (
-        <div className="flex space-x-1 pb-[6px]">
-          <label htmlFor="" className="text-neutral3 font-semibold text-[14px] md:text-[16px]">
+        <div>
+          <label htmlFor="" className="text-[16px] mb-[6px] ml-3 font-semibold">
             {label}
           </label>
           {required && <span className="text-primary2 font-semibold ">*</span>}
@@ -56,12 +54,10 @@ export default function MBInput({
         )}
         <input
           type={type === "password" && showPassword ? "text" : type}
-          className={`rounded-[8px] border-[2px] border-neutral5 px-5 h-[44px] text-[14px] md:text-[16px] w-full 
-          outline-none hover:border-neutral3 focus:border-primary1 ${
+          className={`rounded-[8px] border-[2px] px-5 h-[48px] text-[14px] md:text-[16px] w-full outline-none hover:border-neutral3 focus:border-yellow-500 ${
             iconLeft && "pl-[32px]"
           }  ${inputClassName}`}
           placeholder={placeholder}
-          {...register(name as string, { required })}
         />
         {iconRight && (
           <div className="absolute inset-y-0 right-0 flex items-center justify-center w-8">
@@ -69,23 +65,31 @@ export default function MBInput({
           </div>
         )}
         {type === "password" && (
-          <div className="absolute inset-y-0 right-0 flex items-center justify-center w-8">
+          <div className="absolute inset-y-0 right-0 flex items-center justify-center w-8 mr-[12px]">
             <button
               type="button"
-              className="focus:outline-none text-neutral-500"
+              className="focus:outline-none text-neutral-500 cursor-pointer"
               onClick={toggleShowPassword}
             >
-              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+              {showPassword ? (
+                <AiOutlineEyeInvisible className=" text-[24px]" />
+              ) : (
+                <AiOutlineEye className=" text-[24px]" />
+              )}
             </button>
           </div>
         )}
       </div>
 
       {error ? (
-        <p className="text-primary2 text-[12px] text-end mt-[6px]">{error as string}</p>
+        <p className="text-primary2 text-[12px] text-end mt-[6px]">
+          {error as string}
+        </p>
       ) : (
         description && (
-          <p className="text-neutral3 text-[12px] text-end mt-[6px]">{description}</p>
+          <p className="text-neutral3 text-[12px] text-end mt-[6px]">
+            {description}
+          </p>
         )
       )}
     </div>
