@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useToggle } from "react-use";
-import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { BiLogoFacebookCircle } from "react-icons/bi";
 import Link from "next/link";
@@ -10,8 +9,6 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { loginHome } from "@/redux/features/auth/authSlice";
 import { signIn } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
-import Logomain from "/public/Images/logomain.png";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 export interface ILoginProps {}
